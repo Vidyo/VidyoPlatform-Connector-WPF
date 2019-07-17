@@ -89,262 +89,262 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\..\..\..\include\csharp\Application.cs">
+    <Compile Include="..\..\..\include\csharp\Application.cs">
       <Link>sdk\Application.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\AudioFrame.cs">
+    <Compile Include="..\..\..\include\csharp\AudioFrame.cs">
       <Link>sdk\AudioFrame.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\BandwidthSummaryStats.cs">
+    <Compile Include="..\..\..\include\csharp\BandwidthSummaryStats.cs">
       <Link>sdk\BandwidthSummaryStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\Calendar.cs">
+    <Compile Include="..\..\..\include\csharp\Calendar.cs">
       <Link>sdk\Calendar.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\CalendarCapabilityKey.cs">
+    <Compile Include="..\..\..\include\csharp\CalendarCapabilityKey.cs">
       <Link>sdk\CalendarCapabilityKey.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\CalendarConnectResult.cs">
+    <Compile Include="..\..\..\include\csharp\CalendarConnectResult.cs">
       <Link>sdk\CalendarConnectResult.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\CalendarConnProps.cs">
+    <Compile Include="..\..\..\include\csharp\CalendarConnProps.cs">
       <Link>sdk\CalendarConnProps.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\CalendarCreateCode.cs">
+    <Compile Include="..\..\..\include\csharp\CalendarCreateCode.cs">
       <Link>sdk\CalendarCreateCode.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\CalendarFeedback.cs">
+    <Compile Include="..\..\..\include\csharp\CalendarFeedback.cs">
       <Link>sdk\CalendarFeedback.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\CalendarManager.cs">
+    <Compile Include="..\..\..\include\csharp\CalendarManager.cs">
       <Link>sdk\CalendarManager.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\CalendarManagerFeedback.cs">
+    <Compile Include="..\..\..\include\csharp\CalendarManagerFeedback.cs">
       <Link>sdk\CalendarManagerFeedback.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\CalendarServiceStatus.cs">
+    <Compile Include="..\..\..\include\csharp\CalendarServiceStatus.cs">
       <Link>sdk\CalendarServiceStatus.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\CalendarState.cs">
+    <Compile Include="..\..\..\include\csharp\CalendarState.cs">
       <Link>sdk\CalendarState.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\Call.cs">
+    <Compile Include="..\..\..\include\csharp\Call.cs">
       <Link>sdk\Call.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\ChatMessage.cs">
+    <Compile Include="..\..\..\include\csharp\ChatMessage.cs">
       <Link>sdk\ChatMessage.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\Connector.cs">
+    <Compile Include="..\..\..\include\csharp\Connector.cs">
       <Link>sdk\Connector.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\ConnectorPKG.cs">
+    <Compile Include="..\..\..\include\csharp\ConnectorPKG.cs">
       <Link>sdk\ConnectorPKG.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\Contact.cs">
+    <Compile Include="..\..\..\include\csharp\Contact.cs">
       <Link>sdk\Contact.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\ContactInfo.cs">
+    <Compile Include="..\..\..\include\csharp\ContactInfo.cs">
       <Link>sdk\ContactInfo.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\Device.cs">
+    <Compile Include="..\..\..\include\csharp\Device.cs">
       <Link>sdk\Device.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\Endpoint.cs">
+    <Compile Include="..\..\..\include\csharp\Endpoint.cs">
       <Link>sdk\Endpoint.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\EndpointPKG.cs">
+    <Compile Include="..\..\..\include\csharp\EndpointPKG.cs">
       <Link>sdk\EndpointPKG.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\EndpointStats.cs">
+    <Compile Include="..\..\..\include\csharp\EndpointStats.cs">
       <Link>sdk\EndpointStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\EventSchedule.cs">
+    <Compile Include="..\..\..\include\csharp\EventSchedule.cs">
       <Link>sdk\EventSchedule.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\FormField.cs">
+    <Compile Include="..\..\..\include\csharp\FormField.cs">
       <Link>sdk\FormField.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\FormFieldOption.cs">
+    <Compile Include="..\..\..\include\csharp\FormFieldOption.cs">
       <Link>sdk\FormFieldOption.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\FormFieldTextWrapMode.cs">
+    <Compile Include="..\..\..\include\csharp\FormFieldTextWrapMode.cs">
       <Link>sdk\FormFieldTextWrapMode.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\FormFieldType.cs">
+    <Compile Include="..\..\..\include\csharp\FormFieldType.cs">
       <Link>sdk\FormFieldType.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\Gateway.cs">
+    <Compile Include="..\..\..\include\csharp\Gateway.cs">
       <Link>sdk\Gateway.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\LatencyTestDataStats.cs">
+    <Compile Include="..\..\..\include\csharp\LatencyTestDataStats.cs">
       <Link>sdk\LatencyTestDataStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\LatencyTestStats.cs">
+    <Compile Include="..\..\..\include\csharp\LatencyTestStats.cs">
       <Link>sdk\LatencyTestStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\LocalCamera.cs">
+    <Compile Include="..\..\..\include\csharp\LocalCamera.cs">
       <Link>sdk\LocalCamera.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\LocalMicrophone.cs">
+    <Compile Include="..\..\..\include\csharp\LocalMicrophone.cs">
       <Link>sdk\LocalMicrophone.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\LocalMicrophoneStats.cs">
+    <Compile Include="..\..\..\include\csharp\LocalMicrophoneStats.cs">
       <Link>sdk\LocalMicrophoneStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\LocalMonitor.cs">
+    <Compile Include="..\..\..\include\csharp\LocalMonitor.cs">
       <Link>sdk\LocalMonitor.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\LocalRenderer.cs">
+    <Compile Include="..\..\..\include\csharp\LocalRenderer.cs">
       <Link>sdk\LocalRenderer.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\LocalRendererStats.cs">
+    <Compile Include="..\..\..\include\csharp\LocalRendererStats.cs">
       <Link>sdk\LocalRendererStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\LocalRendererStreamStats.cs">
+    <Compile Include="..\..\..\include\csharp\LocalRendererStreamStats.cs">
       <Link>sdk\LocalRendererStreamStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\LocalSpeaker.cs">
+    <Compile Include="..\..\..\include\csharp\LocalSpeaker.cs">
       <Link>sdk\LocalSpeaker.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\LocalSpeakerStats.cs">
+    <Compile Include="..\..\..\include\csharp\LocalSpeakerStats.cs">
       <Link>sdk\LocalSpeakerStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\LocalSpeakerStreamStats.cs">
+    <Compile Include="..\..\..\include\csharp\LocalSpeakerStreamStats.cs">
       <Link>sdk\LocalSpeakerStreamStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\LocalVideoSourceStats.cs">
+    <Compile Include="..\..\..\include\csharp\LocalVideoSourceStats.cs">
       <Link>sdk\LocalVideoSourceStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\LocalWindowShare.cs">
+    <Compile Include="..\..\..\include\csharp\LocalWindowShare.cs">
       <Link>sdk\LocalWindowShare.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\LogDataStats.cs">
+    <Compile Include="..\..\..\include\csharp\LogDataStats.cs">
       <Link>sdk\LogDataStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\Logger.cs">
+    <Compile Include="..\..\..\include\csharp\Logger.cs">
       <Link>sdk\Logger.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\LoggerCategory.cs">
+    <Compile Include="..\..\..\include\csharp\LoggerCategory.cs">
       <Link>sdk\LoggerCategory.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\LogRecord.cs">
+    <Compile Include="..\..\..\include\csharp\LogRecord.cs">
       <Link>sdk\LogRecord.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\LogStats.cs">
+    <Compile Include="..\..\..\include\csharp\LogStats.cs">
       <Link>sdk\LogStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\MarshalPtrToUtf8.cs">
+    <Compile Include="..\..\..\include\csharp\MarshalPtrToUtf8.cs">
       <Link>sdk\MarshalPtrToUtf8.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\MediaConnectionTransportInfo.cs">
+    <Compile Include="..\..\..\include\csharp\MediaConnectionTransportInfo.cs">
       <Link>sdk\MediaConnectionTransportInfo.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\MediaFormat.cs">
+    <Compile Include="..\..\..\include\csharp\MediaFormat.cs">
       <Link>sdk\MediaFormat.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\Meeting.cs">
+    <Compile Include="..\..\..\include\csharp\Meeting.cs">
       <Link>sdk\Meeting.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\MeetingActionResult.cs">
+    <Compile Include="..\..\..\include\csharp\MeetingActionResult.cs">
       <Link>sdk\MeetingActionResult.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\MeetingAttendee.cs">
+    <Compile Include="..\..\..\include\csharp\MeetingAttendee.cs">
       <Link>sdk\MeetingAttendee.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\MeetingAttendeesSearchResult.cs">
+    <Compile Include="..\..\..\include\csharp\MeetingAttendeesSearchResult.cs">
       <Link>sdk\MeetingAttendeesSearchResult.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\MeetingFeedback.cs">
+    <Compile Include="..\..\..\include\csharp\MeetingFeedback.cs">
       <Link>sdk\MeetingFeedback.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\MeetingInfo.cs">
+    <Compile Include="..\..\..\include\csharp\MeetingInfo.cs">
       <Link>sdk\MeetingInfo.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\MeetingSearchResult.cs">
+    <Compile Include="..\..\..\include\csharp\MeetingSearchResult.cs">
       <Link>sdk\MeetingSearchResult.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\NetworkInterface.cs">
+    <Compile Include="..\..\..\include\csharp\NetworkInterface.cs">
       <Link>sdk\NetworkInterface.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\NetworkInterfaceStats.cs">
+    <Compile Include="..\..\..\include\csharp\NetworkInterfaceStats.cs">
       <Link>sdk\NetworkInterfaceStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\Participant.cs">
+    <Compile Include="..\..\..\include\csharp\Participant.cs">
       <Link>sdk\Participant.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\ParticipantGenerationStats.cs">
+    <Compile Include="..\..\..\include\csharp\ParticipantGenerationStats.cs">
       <Link>sdk\ParticipantGenerationStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\ParticipantStats.cs">
+    <Compile Include="..\..\..\include\csharp\ParticipantStats.cs">
       <Link>sdk\ParticipantStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\Property.cs">
+    <Compile Include="..\..\..\include\csharp\Property.cs">
       <Link>sdk\Property.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\RateShaperStats.cs">
+    <Compile Include="..\..\..\include\csharp\RateShaperStats.cs">
       <Link>sdk\RateShaperStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\RemoteCamera.cs">
+    <Compile Include="..\..\..\include\csharp\RemoteCamera.cs">
       <Link>sdk\RemoteCamera.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\RemoteMicrophone.cs">
+    <Compile Include="..\..\..\include\csharp\RemoteMicrophone.cs">
       <Link>sdk\RemoteMicrophone.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\RemoteMicrophoneStats.cs">
+    <Compile Include="..\..\..\include\csharp\RemoteMicrophoneStats.cs">
       <Link>sdk\RemoteMicrophoneStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\RemoteRenderer.cs">
+    <Compile Include="..\..\..\include\csharp\RemoteRenderer.cs">
       <Link>sdk\RemoteRenderer.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\RemoteRendererStreamStats.cs">
+    <Compile Include="..\..\..\include\csharp\RemoteRendererStreamStats.cs">
       <Link>sdk\RemoteRendererStreamStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\RemoteSpeaker.cs">
+    <Compile Include="..\..\..\include\csharp\RemoteSpeaker.cs">
       <Link>sdk\RemoteSpeaker.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\RemoteSpeakerStreamStats.cs">
+    <Compile Include="..\..\..\include\csharp\RemoteSpeakerStreamStats.cs">
       <Link>sdk\RemoteSpeakerStreamStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\RemoteVideoSourceStats.cs">
+    <Compile Include="..\..\..\include\csharp\RemoteVideoSourceStats.cs">
       <Link>sdk\RemoteVideoSourceStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\RemoteWindowShare.cs">
+    <Compile Include="..\..\..\include\csharp\RemoteWindowShare.cs">
       <Link>sdk\RemoteWindowShare.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\Room.cs">
+    <Compile Include="..\..\..\include\csharp\Room.cs">
       <Link>sdk\Room.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\RoomInfo.cs">
+    <Compile Include="..\..\..\include\csharp\RoomInfo.cs">
       <Link>sdk\RoomInfo.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\RoomStats.cs">
+    <Compile Include="..\..\..\include\csharp\RoomStats.cs">
       <Link>sdk\RoomStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\Statistics.cs">
+    <Compile Include="..\..\..\include\csharp\Statistics.cs">
       <Link>sdk\Statistics.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\User.cs">
+    <Compile Include="..\..\..\include\csharp\User.cs">
       <Link>sdk\User.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\UserStats.cs">
+    <Compile Include="..\..\..\include\csharp\UserStats.cs">
       <Link>sdk\UserStats.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\VideoCapability.cs">
+    <Compile Include="..\..\..\include\csharp\VideoCapability.cs">
       <Link>sdk\VideoCapability.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\VideoFrame.cs">
+    <Compile Include="..\..\..\include\csharp\VideoFrame.cs">
       <Link>sdk\VideoFrame.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\VideoPlane.cs">
+    <Compile Include="..\..\..\include\csharp\VideoPlane.cs">
       <Link>sdk\VideoPlane.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\VirtualDeviceManager.cs">
+    <Compile Include="..\..\..\include\csharp\VirtualDeviceManager.cs">
       <Link>sdk\VirtualDeviceManager.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\VirtualShareManager.cs">
+    <Compile Include="..\..\..\include\csharp\VirtualShareManager.cs">
       <Link>sdk\VirtualShareManager.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\include\csharp\VirtualWindowShare.cs">
+    <Compile Include="..\..\..\include\csharp\VirtualWindowShare.cs">
       <Link>sdk\VirtualWindowShare.cs</Link>
     </Compile>
     <Compile Include="Commands\BindableCommand.cs" />
@@ -456,7 +456,7 @@
     </Resource>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <Content Include="..\..\..\..\lib\windows\x64\Release\libVidyoClient.dll">
+    <Content Include="..\..\..\lib\windows\x64\Release\libVidyoClient.dll">
       <Link>libVidyoClient.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -467,19 +467,19 @@
     </Resource>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <Content Include="..\..\..\..\lib\windows\x64\Release\libVidyoClient.dll">
+    <Content Include="..\..\..\lib\windows\x64\Release\libVidyoClient.dll">
       <Link>libVidyoClient.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <Content Include="..\..\..\..\lib\windows\Win32\Release\libVidyoClient.dll">
+    <Content Include="..\..\..\lib\windows\Win32\Release\libVidyoClient.dll">
       <Link>libVidyoClient.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <Content Include="..\..\..\..\lib\windows\Win32\Release\libVidyoClient.dll">
+    <Content Include="..\..\..\lib\windows\Win32\Release\libVidyoClient.dll">
       <Link>libVidyoClient.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

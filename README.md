@@ -5,7 +5,7 @@ VidyoConnector-WPF is a Windows desktop application written in C# using WPF tech
 
 ## Acquire Framework
 1. Download the latest Vidyo.io Windows SDK package for VisualStudio 2013 (https://static.vidyo.io/latest/package/VidyoClient-WindowsSDK.zip) or for VisualStudio 2017 (https://static.vidyo.io/latest/package/VidyoClient-WinVS2017SDK.zip).
-2. Extract contents and locate '~\VidyoClient-WindowsSDK\samples\VidyoConnector' folder.
+2. Extract contents and locate '~\VidyoClient-WindowsSDK\samples\' folder.
 > Note: VidyoClient SDK version 4.1.25.46 or later is required.
 
 ## Build and Run Application
