@@ -13,12 +13,15 @@ namespace VidyoConnector
         {
             InitializeComponent();
 
-            ((VidyoConnectorViewModel) DataContext).Init(VideoPanel.Handle, (uint) VideoPanel.Width, (uint) VideoPanel.Height);
+            ((VidyoConnectorViewModel)DataContext).Init(VideoPanel_prime.Handle, VideoPanel_second.Handle, VideoPanel_third.Handle, VideoPanel_fourth.Handle, VideoPanel_fifth.Handle, VideoPanel_local.Handle);
         }
 
         private void FrameworkElement_OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            ((VidyoConnectorViewModel)DataContext).AdjustVideoPanelSize(VideoPanel.Handle, (uint)wfHost.ActualWidth, (uint)wfHost.ActualHeight/*(uint)VideoPanel.Width, (uint)VideoPanel.Height*/);
+
+            var host = ((System.Windows.Forms.Integration.WindowsFormsHost)sender);
+            
+            ((VidyoConnectorViewModel)DataContext).AdjustVideoPanelSize(host.Child.Handle, (uint)host.ActualWidth, (uint)host.ActualHeight, host.Name);
         }
 
         private void MenuItemCameras_OnClick(object sender, RoutedEventArgs e)

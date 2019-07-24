@@ -358,6 +358,7 @@
     <Compile Include="Listeners\LogListener.cs" />
     <Compile Include="Listeners\MessageListener.cs" />
     <Compile Include="Listeners\ParticipantListener.cs" />
+    <Compile Include="Listeners\RemoteCameraListener.cs" />
     <Compile Include="Model\ChatMessageModel.cs" />
     <Compile Include="Model\ConnectionState.cs" />
     <Compile Include="Model\LocalCameraModel.cs" />
@@ -368,6 +369,7 @@
     <Compile Include="Model\LocalSpeakerModel.cs" />
     <Compile Include="Model\LocalWindowShareModel.cs" />
     <Compile Include="Model\DeviceModelBase.cs" />
+    <Compile Include="Model\RemoteCameraModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModel\VidyoConnectorViewModel.cs" />
     <Page Include="VidyoConnector.xaml">

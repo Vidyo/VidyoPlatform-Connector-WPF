@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
+using System.Collections.Generic;
 using System.Windows.Input;
 using log4net;
 using VidyoClient;
@@ -21,6 +22,32 @@ namespace VidyoConnector.ViewModel
     public class VidyoConnectorViewModel : INotifyPropertyChanged
     {
         private Connector _connector;
+        //private IntPtr _primeHandle;
+        //private IntPtr _secondHandle;
+        //private IntPtr _thirdHandle;
+        //private IntPtr _fourthHandle;
+        //private IntPtr _fifthHandle;
+        //private readonly object _LayoutLock = new object();
+        private IntPtr _localHandle;
+        private uint remoteParticipantCount = 0;
+        private Dictionary<string, Tuple<uint, uint, IntPtr>> _wfHostSizes = new Dictionary<string, Tuple<uint, uint, IntPtr>>();
+        private Dictionary<string, RemoteCamera> _ParticipantCameraMapping = new Dictionary<string, RemoteCamera>();
+        private Dictionary<string, RemoteCamera> _UnassignedRemoteParticipants = new Dictionary<string, RemoteCamera>();
+        private Dictionary<string, Tuple<uint, IntPtr>> _participantHandleMapping = new Dictionary<string, Tuple<uint, IntPtr>>();
+        private SortedList<uint, IntPtr> _sortedHandles = new SortedList<uint, IntPtr>();
+        //private List<Participant> _AssignedRemoteParticipants = new List<Participant>();
+        private Participant _LoudestParticipant;
+        private LocalCamera _SelectedCamera;
+        private bool _localCameraAssigned = false;
+
+        private const string PATIENT = "patient";
+        private const string WF_PRIME = "wfHost_prime";
+        private const string WF_SECOND = "wfHost_second";
+        private const string WF_THIRD = "wfHost_third";
+        private const string WF_FOURTH = "wfHost_fourth";
+        private const string WF_FIFTH = "wfHost_fifth";
+        private const string WF_LOCAL = "wfHost_local";
+        
 
         // Used log4net here. Can be replaced with any other Logger.
         internal readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -42,16 +69,23 @@ namespace VidyoConnector.ViewModel
         /// <param name="handle">Control's handler where video will be rendered.</param>
         /// <param name="width">Width of video area.</param>
         /// <param name="height">Height of video area.</param>
-        public void Init(IntPtr handle, uint width, uint height)
+        public void Init(IntPtr handle1, IntPtr handle2, IntPtr handle3, IntPtr handle4, IntPtr handle5, IntPtr localHandle)
         {
             ConnectorPKG.Initialize();
+            DisplayName = "Steve";
+            Portal = "sandbox.vidyocloudstaging.com";
+            RoomKey = "Qonw3VhVEv";
+            _sortedHandles.Add(1, handle1);
+            _sortedHandles.Add(2, handle2);
+            _sortedHandles.Add(3, handle3);
+            _sortedHandles.Add(4, handle4);
+            _sortedHandles.Add(5, handle5);
             Log.Info("VidyoConnector initialized.");
+            _localHandle = localHandle;
 
-            _connector = new Connector(handle, Connector.ConnectorViewStyle.ConnectorviewstyleDefault, 8, "all@VidyoClient", "VidyoClient.log", 0);
+            _connector = new Connector(IntPtr.Zero, Connector.ConnectorViewStyle.ConnectorviewstyleDefault, 8, "all@VidyoClient all@LmiCsEpClient", "VidyoClient.log", 0);
 
             // This should be called on each window resizing.
-            _connector.ShowViewAtPoints(handle, 0, 0, width, height);
-            Log.Info(string.Format("Showing view with width={0} and height={1}", width, height));
 
             // Adding Null's to devices collection, which is 'None' in GUI. Selecting 'None' means no device will be used.
             LocalCameras.Add(new LocalCameraModel(null));
@@ -65,6 +99,7 @@ namespace VidyoConnector.ViewModel
             _connector.RegisterLocalSpeakerEventListener(new LocalSpeakerListener(this));
             _connector.RegisterParticipantEventListener(new ParticipantListener(this));
             _connector.RegisterLocalMonitorEventListener(new LocalMonitorListener(this));
+            _connector.RegisterRemoteCameraEventListener(new RemoteCameraListener(this));
             //_connector.RegisterLogEventListener(new LogListener(this), "*@VidyoClient");
             _connector.RegisterMessageEventListener(new MessageListener(this));
 
@@ -86,8 +121,14 @@ namespace VidyoConnector.ViewModel
         /// <param name="handle">Control's handler where video will be rendered.</param>
         /// <param name="width">Width of video area.</param>
         /// <param name="height">Height of video area.</param>
-        public void AdjustVideoPanelSize(IntPtr handle, uint width, uint height)
-        {
+        public void AdjustVideoPanelSize(IntPtr handle, uint width, uint height, string name)
+        {            
+            _wfHostSizes[name] = Tuple.Create(width, height, handle);
+            if (!_localCameraAssigned && name == WF_LOCAL)
+            {
+                _connector.AssignViewToLocalCamera(handle, _SelectedCamera, false, false);
+                _localCameraAssigned = true;
+            }
             _connector.ShowViewAtPoints(handle, 0, 0, width, height);
         }
 
@@ -162,6 +203,14 @@ namespace VidyoConnector.ViewModel
         public void SetSelectedLocalCamera(LocalCameraModel camera)
         {
             var cameraToSelect = LocalCameras.FirstOrDefault(x => x.Id == camera.Id);
+            
+            if ( _wfHostSizes.ContainsKey(WF_LOCAL))
+            {
+                _connector.HideView(_localHandle);
+                _connector.AssignViewToLocalCamera(_localHandle, camera.Object, false, false);
+                _connector.ShowViewAtPoints(_localHandle, 0, 0, _wfHostSizes[WF_LOCAL].Item1, _wfHostSizes[WF_LOCAL].Item2);
+                _localCameraAssigned = true;
+            }
             if (cameraToSelect != null)
             {
                 LocalCameras.Select(x =>
@@ -175,6 +224,7 @@ namespace VidyoConnector.ViewModel
                 Log.Info(string.Format("Local camera selected: name={0} id={1}", cameraToSelect.DisplayName,
                     cameraToSelect.Id));
             }
+            _SelectedCamera = camera.Object;
         }
 
         public void SetSelectedVideoContent(LocalCameraModel camera)
@@ -592,6 +642,173 @@ namespace VidyoConnector.ViewModel
 
         #endregion
 
+        #region RemoteCamera
+        public void RemoteCameraAdded(RemoteCameraModel cameraModel)
+        {
+            //lock (_LayoutLock)
+            System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => 
+            {
+                _ParticipantCameraMapping.Add(cameraModel.Participant.GetId(), cameraModel.Camera);
+                if (_sortedHandles.Any())
+                {
+                    var currentTuple = Tuple.Create(_sortedHandles.First().Key, _sortedHandles.First().Value);
+                    _sortedHandles.Remove(currentTuple.Item1);
+                    _connector.AssignViewToRemoteCamera(currentTuple.Item2, cameraModel.Camera, false, false);
+                    var theHandle = _wfHostSizes.First(wf => wf.Value.Item3 == currentTuple.Item2).Value;
+                    _connector.ShowViewAtPoints(currentTuple.Item2, 0, 0, theHandle.Item1, theHandle.Item2);
+                    _participantHandleMapping.Add(cameraModel.Participant.GetId(), currentTuple);
+                }
+            }));            
+        }
+
+        public void RemoteCameraRemoved(RemoteCameraModel cameraModel)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(new Action(() => 
+            {
+                var id = cameraModel.Participant.GetId();
+                _ParticipantCameraMapping.Remove(id);
+                reconfigureRemoteCamerasOnRemove(id);
+            }));
+            
+            
+        }
+
+        public void reconfigureRemoteCamerasOnRemove(string startingId)
+        {
+            var startingHandle = _participantHandleMapping[startingId];
+            var handlesToRearrange = _participantHandleMapping.Where(pt => pt.Value.Item1 >= startingHandle.Item1).ToArray();
+            var disruptedParticiapants = new Dictionary<string, RemoteCamera>();
+
+            //hide the cameras
+            foreach(var pair in handlesToRearrange)
+            {
+                _connector.HideView(pair.Value.Item2);
+
+                //drop that tuple back into the sorted Handles list
+                _sortedHandles.Add(pair.Value.Item1, pair.Value.Item2);
+                _participantHandleMapping.Remove(pair.Key);
+                if (pair.Key != startingId)
+                {
+                    disruptedParticiapants.Add(pair.Key, _ParticipantCameraMapping[pair.Key]);
+                }                
+            }
+
+            foreach(var participant in disruptedParticiapants)
+            {
+                var currentTuple = Tuple.Create(_sortedHandles.First().Key, _sortedHandles.First().Value);
+                _sortedHandles.Remove(currentTuple.Item1);
+                _connector.AssignViewToRemoteCamera(currentTuple.Item2, participant.Value, false, false);
+                var theHandle = _wfHostSizes.First(wf => wf.Value.Item3 == currentTuple.Item2).Value;
+                _connector.ShowViewAtPoints(currentTuple.Item2, 0, 0, theHandle.Item1, theHandle.Item2);
+                _participantHandleMapping.Add(participant.Key, currentTuple);
+            }
+
+            while(_UnassignedRemoteParticipants.Any() && _sortedHandles.Any())
+            {
+                var participant = _UnassignedRemoteParticipants.First();
+                _UnassignedRemoteParticipants.Remove(participant.Key);
+                var currentTuple = Tuple.Create(_sortedHandles.First().Key, _sortedHandles.First().Value);
+                _sortedHandles.Remove(currentTuple.Item1);
+                _connector.AssignViewToRemoteCamera(currentTuple.Item2, participant.Value, false, false);
+                var theHandle = _wfHostSizes.First(wf => wf.Value.Item3 == currentTuple.Item2).Value;
+                _connector.ShowViewAtPoints(currentTuple.Item2, 0, 0, theHandle.Item1, theHandle.Item2);
+                _participantHandleMapping.Add(participant.Key, currentTuple);
+            }
+
+        }
+
+        private void ReconfigureCamerasOnLoudestChanged(Participant participant)
+        {
+            var id = participant.GetId();
+            if (!_ParticipantCameraMapping.ContainsKey(id))
+            {
+                return; // take no action as the loudest participant doesn't have a camera
+            }                
+            var camera = _ParticipantCameraMapping[id];
+            Tuple<uint,IntPtr> participantsCurrentView = null;
+            if (_participantHandleMapping.ContainsKey(id))
+            {
+                if(_participantHandleMapping[id].Item1 == 1)
+                {
+                    return; //take no action as the loudest participant is already rendered in the primary spot
+                }                    
+                participantsCurrentView = _participantHandleMapping[id];
+                var swapViews = _participantHandleMapping.Where(pm => pm.Value.Item1 == 1).ToArray();
+                if (swapViews.Any()) //handle case where there is a participant currently in the prime spot
+                {
+                    var sv = swapViews[0];
+                    var swapCamera = _ParticipantCameraMapping[sv.Key];
+                    _participantHandleMapping[sv.Key] = participantsCurrentView;
+                    _participantHandleMapping[id]=sv.Value;                    
+                    var newTupleLoudest = Tuple.Create(participantsCurrentView.Item1, sv.Value.Item2);
+                    var newTupleReplaced = Tuple.Create(sv.Value.Item1, participantsCurrentView.Item2);
+                    _connector.HideView(participantsCurrentView.Item2);
+                    _connector.HideView(sv.Value.Item2);
+                    _connector.AssignViewToRemoteCamera(participantsCurrentView.Item2, swapCamera, false, false);
+                    _connector.AssignViewToRemoteCamera(sv.Value.Item2, camera, false, false);
+                    var prime_dimensions = _wfHostSizes.Where(v => v.Value.Item3 == sv.Value.Item2).Select(v=> new { width = v.Value.Item1, height = v.Value.Item2 }).First();
+                    var swap_dimensions = _wfHostSizes.Where(v => v.Value.Item3 == participantsCurrentView.Item2).Select(v => new { width = v.Value.Item1, height = v.Value.Item2 }).First();
+                    _connector.ShowViewAtPoints(participantsCurrentView.Item2, 0, 0, swap_dimensions.width, swap_dimensions.height);
+                    _connector.ShowViewAtPoints(sv.Value.Item2, 0, 0, prime_dimensions.width, prime_dimensions.height);
+                }
+                else //handle case where no participant currently occupies prime spot
+                {
+                    var prime_tuple = Tuple.Create(_sortedHandles.First().Key, _sortedHandles.First().Value);
+                    _sortedHandles.Remove(prime_tuple.Item1);
+                    _participantHandleMapping[id] = prime_tuple;
+                    var prime_dimensions = _wfHostSizes.Where(v => v.Value.Item3 == prime_tuple.Item2).Select(v => new { width = v.Value.Item1, height = v.Value.Item2 }).First();
+                    _connector.HideView(participantsCurrentView.Item2);
+                    _sortedHandles.Add(participantsCurrentView.Item1, participantsCurrentView.Item2);
+                    _connector.AssignViewToRemoteCamera(prime_tuple.Item2, camera, false, false);
+                    _connector.ShowViewAtPoints(prime_tuple.Item2, 0, 0, prime_dimensions.width, prime_dimensions.height);
+
+                }
+            }
+            else //handle case where the prime spot is occupied and the new loudest speaker is not rendered
+            {
+                var swapView = _participantHandleMapping.Where(pm => pm.Value.Item1 == 1).ToArray()[0];
+                _participantHandleMapping.Remove(swapView.Key);
+                _participantHandleMapping.Add(id, swapView.Value);
+                var prime_dimensions = _wfHostSizes.Where(v => v.Value.Item3 == swapView.Value.Item2).Select(v => new { width = v.Value.Item1, height = v.Value.Item2 }).First();
+                _connector.HideView(swapView.Value.Item2);
+                _connector.AssignViewToRemoteCamera(swapView.Value.Item2, camera, false, false);
+                _connector.ShowViewAtPoints(swapView.Value.Item2, 0, 0, prime_dimensions.width, prime_dimensions.height);
+            }
+            
+        }
+        public void RemoteCameraStateUpdated(RemoteCameraModel cameraModel)
+        {
+            //do nothing
+        }
+        #endregion
+
+        #region Participants
+        private void OnParticipantJoined()
+        {
+            remoteParticipantCount++;
+        }
+        private void OnParticipantLeft()
+        {
+            remoteParticipantCount--;
+        }
+        public void OnLoudestParticipantChanged(Participant participant, bool audioOnly)
+        {
+            //lock (_LayoutLock)
+            {
+                if (!audioOnly)
+                {
+                    _LoudestParticipant = participant;
+                    ReconfigureCamerasOnLoudestChanged(participant);
+                }
+            }
+            
+
+        }
+        private void ReArrangeParticpants()
+        {
+                        
+        }
+        #endregion
         #region General
 
         /*

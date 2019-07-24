@@ -39,6 +39,7 @@ namespace VidyoConnector.Listeners
             {
                 ViewModel.ParticipantsActivityLog = string.Format("{0} speaking...", name);
             }
+            ViewModel.OnLoudestParticipantChanged(participant, audioOnly);
         }
     }
 }
