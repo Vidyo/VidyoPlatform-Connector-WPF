@@ -72,9 +72,8 @@ namespace VidyoConnector.ViewModel
         public void Init(IntPtr handle1, IntPtr handle2, IntPtr handle3, IntPtr handle4, IntPtr handle5, IntPtr localHandle)
         {
             ConnectorPKG.Initialize();
-            DisplayName = "Steve";
-            Portal = "sandbox.vidyocloudstaging.com";
-            RoomKey = "Qonw3VhVEv";
+            DisplayName = "DemoUser";
+            Portal = "https://vidyocloud.com";
             _sortedHandles.Add(1, handle1);
             _sortedHandles.Add(2, handle2);
             _sortedHandles.Add(3, handle3);
@@ -100,7 +99,6 @@ namespace VidyoConnector.ViewModel
             _connector.RegisterParticipantEventListener(new ParticipantListener(this));
             _connector.RegisterLocalMonitorEventListener(new LocalMonitorListener(this));
             _connector.RegisterRemoteCameraEventListener(new RemoteCameraListener(this));
-            //_connector.RegisterLogEventListener(new LogListener(this), "*@VidyoClient");
             _connector.RegisterMessageEventListener(new MessageListener(this));
 
             // We are not in call when application started.
