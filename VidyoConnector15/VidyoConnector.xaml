@@ -216,9 +216,9 @@
                     </Style>
                 </Grid.Resources>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="110"/>
-                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="90"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -253,7 +253,7 @@
                     </WindowsFormsHost>
                 </Border>
                 <Border Grid.Row="2" Grid.ColumnSpan="4" >
-                    <WindowsFormsHost x:Name="wfHost_local" HorizontalAlignment="Center" Width="100" VerticalAlignment="Stretch" SizeChanged="FrameworkElement_OnSizeChanged">
+                    <WindowsFormsHost x:Name="wfHost_local" HorizontalAlignment="Center" Width="160" VerticalAlignment="Stretch" SizeChanged="FrameworkElement_OnSizeChanged">
                         <winForms:Panel x:Name="VideoPanel_local"/>
                     </WindowsFormsHost>
                 </Border>
