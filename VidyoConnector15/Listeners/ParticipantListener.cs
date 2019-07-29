@@ -20,7 +20,7 @@ namespace VidyoConnector.Listeners
 
         public void OnParticipantLeft(Participant participant)
         {
-            var name = participant?.GetName();
+            var name = participant.GetName();
             if (!string.IsNullOrEmpty(name))
             {
                 ViewModel.ParticipantsActivityLog = string.Format("{0} has left", name);
@@ -39,7 +39,6 @@ namespace VidyoConnector.Listeners
             {
                 ViewModel.ParticipantsActivityLog = string.Format("{0} speaking...", name);
             }
-            ViewModel.OnLoudestParticipantChanged(participant, audioOnly);
         }
     }
 }
