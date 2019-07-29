@@ -40,8 +40,8 @@ namespace VidyoConnector.ViewModel
         private Tuple<uint, uint> _primeDimensions;
         private Tuple<uint, uint> _localDimensions;        
         private string _primeOccupantId;        
-        private bool _primeOccupied;
-        private bool _remoteWindowSharePresent;
+        private bool _primeOccupied = false;
+        private bool _remoteWindowSharePresent = false;
         //private List<Participant> _AssignedRemoteParticipants = new List<Participant>();
         private Participant _LoudestParticipant;
         private LocalCamera _SelectedCamera;
@@ -886,7 +886,7 @@ namespace VidyoConnector.ViewModel
         {
             //lock (_LayoutLock)
             {
-                if (!audioOnly && _remoteWindowSharePresent)
+                if (!audioOnly && !_remoteWindowSharePresent)
                 {
                     _LoudestParticipant = participant;
                     ReconfigureCamerasOnLoudestChanged(participant);

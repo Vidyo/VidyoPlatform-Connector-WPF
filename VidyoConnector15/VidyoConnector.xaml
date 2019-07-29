@@ -212,7 +212,7 @@
             <Grid Grid.ColumnSpan="2" Grid.Column="1">
                 <Grid.Resources >
                     <Style TargetType="Border" >
-                        <Setter Property="Padding" Value="5,5,5,5" />
+                        <Setter Property="Padding" Value="1,0,0,5" />
                     </Style>
                 </Grid.Resources>
                 <Grid.RowDefinitions>
