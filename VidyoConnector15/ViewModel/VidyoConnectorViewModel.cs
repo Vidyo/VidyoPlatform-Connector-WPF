@@ -35,11 +35,13 @@ namespace VidyoConnector.ViewModel
         private Dictionary<string, RemoteCamera> _ParticipantCameraMapping = new Dictionary<string, RemoteCamera>();
         private Dictionary<string, RemoteCamera> _UnassignedRemoteParticipants = new Dictionary<string, RemoteCamera>();
         private Dictionary<string, Tuple<uint, IntPtr>> _participantHandleMapping = new Dictionary<string, Tuple<uint, IntPtr>>();
+        private Dictionary<string, RemoteWindowShare> _UnassignedRemoteWindowShares = new Dictionary<string, RemoteWindowShare>();
         private SortedList<uint, IntPtr> _sortedHandles = new SortedList<uint, IntPtr>();
         private Tuple<uint, uint> _primeDimensions;
-        private Tuple<uint, uint> _localDimensions;
-        private string _primeOccupantId;
+        private Tuple<uint, uint> _localDimensions;        
+        private string _primeOccupantId;        
         private bool _primeOccupied;
+        private bool _remoteWindowSharePresent;
         //private List<Participant> _AssignedRemoteParticipants = new List<Participant>();
         private Participant _LoudestParticipant;
         private LocalCamera _SelectedCamera;
@@ -106,6 +108,7 @@ namespace VidyoConnector.ViewModel
             _connector.RegisterLocalMonitorEventListener(new LocalMonitorListener(this));
             _connector.RegisterRemoteCameraEventListener(new RemoteCameraListener(this));
             _connector.RegisterMessageEventListener(new MessageListener(this));
+            _connector.RegisterRemoteWindowShareEventListener(new RemoteWindowShareListener(this));
 
             // We are not in call when application started.
             ConnectionState = ConnectionState.NotConnected;
@@ -810,6 +813,65 @@ namespace VidyoConnector.ViewModel
             //do nothing
         }
         #endregion
+        #region RemoteWindowShare
+        public void OnRemoteWindowShareAdded(RemoteWindowShare share, Participant participant)
+        {
+            if (_primeOccupied && !_remoteWindowSharePresent)
+            {
+                _connector.HideView(_primehandle);
+                if (_sortedHandles.Any())
+                {
+                    var handle = _sortedHandles.First();
+                    var prime_occpants_camera = _ParticipantCameraMapping[_primeOccupantId];
+                    _sortedHandles.Remove(handle.Key);
+                    _participantHandleMapping.Add(_primeOccupantId,Tuple.Create(handle.Key,handle.Value));
+                    var dims = _wfHostSizes.Where(w => w.Value.Item3 == handle.Value).First();
+                    _connector.AssignViewToRemoteCamera(handle.Value, prime_occpants_camera, true, false);
+                    _connector.ShowViewAtPoints(handle.Value, 0, 0, dims.Value.Item1, dims.Value.Item2);
+                }
+                _connector.AssignViewToRemoteWindowShare(_primehandle, share, false, false);
+                _connector.ShowViewAtPoints(_primehandle, 0, 0, _primeDimensions.Item1, _primeDimensions.Item2);
+                _remoteWindowSharePresent = true;                
+                _primeOccupantId = share.GetId();
+                
+            }
+            else if(_primeOccupied && _remoteWindowSharePresent)
+            {
+                _UnassignedRemoteWindowShares.Add(share.GetId(), share);
+            }
+            else if(!_primeOccupied)
+            {
+                _connector.AssignViewToRemoteWindowShare(_primehandle, share, false, false);
+                _connector.ShowViewAtPoints(_primehandle, 0, 0, _primeDimensions.Item1, _primeDimensions.Item2);
+                _remoteWindowSharePresent = true;
+                _primeOccupied = true;                
+            }
+        }
+        public void OnRemoteWindowShareRemoved(RemoteWindowShare share, Participant participant)
+        {
+            if(share.GetId() == _primeOccupantId)
+            {
+                if (_UnassignedRemoteWindowShares.Any())
+                {
+                    var newShare = _UnassignedRemoteWindowShares.First();
+                    _UnassignedRemoteWindowShares.Remove(newShare.Key);
+                    _primeOccupantId = newShare.Key;
+                    _connector.HideView(_primehandle);
+                    _connector.AssignViewToRemoteWindowShare(_primehandle, newShare.Value, false, false);
+                    _connector.ShowViewAt(_primehandle, 0, 0, _primeDimensions.Item1, _primeDimensions.Item2);                    
+                }
+                else
+                {
+                    reconfigureRemoteCamerasOnRemove(share.GetId());
+                    _remoteWindowSharePresent = false;
+                }
+            }
+            else
+            {
+                _UnassignedRemoteWindowShares.Remove(share.GetId());
+            }
+        }
+        #endregion
 
         #region Participants
         private void OnParticipantJoined()
@@ -824,7 +886,7 @@ namespace VidyoConnector.ViewModel
         {
             //lock (_LayoutLock)
             {
-                if (!audioOnly)
+                if (!audioOnly && _remoteWindowSharePresent)
                 {
                     _LoudestParticipant = participant;
                     ReconfigureCamerasOnLoudestChanged(participant);
