@@ -11,3 +11,6 @@ git clone https://github.com/Vidyo/vidyoplatform-connector-wpf.git
 ## Build and Run Application
 1. Open the solution *VidyoClient-WinVS2017SDK/samples/vidyoplatform-connector-wpf/VidyoConnector15.sln* in Visual Studio 2017 or later.
 2. Build and run the application.
+
+## Notes
+1. All files/classes in the 'sdk' solution folder are added as links to actual files in the SDK. So pay attention to its relative paths.
